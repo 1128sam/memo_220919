@@ -54,19 +54,15 @@ $(document).ready(function() {
 			type:"POST"
 			, url:"/user/is_duplicated_id"
 			, data:{"loginId":loginId}
-
+	
 			// Response
 			, success:function(data) {
-				if (data.is_duplication == 1) {
-					if (data.result) {
-						// 중복
-						$('#idCheckDuplicated').removeClass('d-none');
-					} else {
-						// 사용 가능
-						$('#idCheckOk').removeClass('d-none');
-					}
+				if (data.result) {
+					// 중복
+					$('#idCheckDuplicated').removeClass('d-none');
 				} else {
-					alert("조회 내역이 없습니다.");
+					// 사용 가능
+					$('#idCheckOk').removeClass('d-none');
 				}
 			}
 			, error:function(e) {

@@ -7,12 +7,33 @@
 		select * from `post`
 	</select>
 	
-	<select id="isDuplicatedId" parameterType="string" resultType="boolean">
+	<!-- <select id="isDuplicatedId" parameterType="string" resultType="boolean">
 		SELECT
   			count(*)
   		FROM
   			`user`
   		where
   			`loginId` = #{loginId}
-	</select>
+	</select> -->
+	
+	<insert id="insertUser" parameterType="map">
+		INSERT INTO `user`
+		(
+			`loginId`
+			,`password`
+			,`name`
+			,`email`
+			,`createdAt`
+			,`updatedAt`
+		)
+		VALUES
+		(
+			#{loginId}
+			, #{password}
+			, #{name}
+			, #{email}
+			, NOW()
+			, NOW()
+		)
+	</insert>
 </mapper>
