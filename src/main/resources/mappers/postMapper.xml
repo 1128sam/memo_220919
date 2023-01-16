@@ -6,4 +6,13 @@
 	<select id="selectPostListTest" resultType="map">
 		select * from `post`
 	</select>
+	
+	<select id="isDuplicatedId" parameterType="string" resultType="boolean">
+		SELECT
+  			count(*)
+  		FROM
+  			`user`
+  		where
+  			`loginId` = #{loginId}
+	</select>
 </mapper>

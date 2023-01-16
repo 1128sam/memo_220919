@@ -9,4 +9,6 @@ import org.springframework.stereotype.Repository;
 public interface PostDAO {
 
 	public List<Map<String, Object>> selectPostListTest();
+	
+	public boolean isDuplicatedId(String loginId);
 }
