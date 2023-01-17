@@ -1,21 +1,19 @@
-package com.example.memo.post.dao;
-
-import java.util.List;
-import java.util.Map;
+package com.example.memo.dao;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
-@Repository
-public interface PostDAO {
+import com.example.memo.user.model.User;
 
-	public List<Map<String, Object>> selectPostListTest();
-	
-	public boolean isDuplicatedId(String loginId);
+@Repository
+public interface UserDAO {
+	public int existLoginId(String loginId);
 	
 	public void insertUser(
 			@Param("loginId") String loginId, 
 			@Param("password") String password, 
 			@Param("name") String name, 
 			@Param("email") String email);
+	
+	public User selectUserByLoginIdPassword(@Param("loginId") String loginId, @Param("password") String password);
 }

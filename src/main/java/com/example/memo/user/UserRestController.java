@@ -23,6 +23,7 @@ public class UserRestController {
 
 	@Autowired
 	private PostBO postBO;
+	@Autowired
 	private UserBO userBO;
 	
 	/**
@@ -35,8 +36,8 @@ public class UserRestController {
 			@RequestParam("loginId") String loginId) {
 
 		Map<String, Object> result = new HashMap<>();
-		boolean isDuplicated = userBO.existLoginId(loginId);
-		if (isDuplicated) { // 중복
+		int isDuplicated = userBO.existLoginId(loginId);
+		if (isDuplicated > 0) { // 중복
 			result.put("code", 1);
 			result.put("result", true);
 		} else { // 사용 가능
@@ -61,7 +62,7 @@ public class UserRestController {
 		String hashedPassword = EncryptUtils.md5(password);
 		
 		// db insert
-		postBO.addUser(loginId, hashedPassword, name, email);
+		userBO.addUser(loginId, hashedPassword, name, email);
 		
 		Map<String, Object> result = new HashMap<>();
 		result.put("code", 1);

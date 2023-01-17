@@ -2,7 +2,7 @@ package com.example.memo.bo;
 
 import org.springframework.stereotype.Service;
 
-import com.example.memo.post.dao.PostDAO;
+import com.example.memo.dao.PostDAO;
 
 @Service
 public class PostBO {
