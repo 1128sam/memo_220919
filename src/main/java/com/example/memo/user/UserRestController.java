@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.memo.bo.PostBO;
 import com.example.memo.bo.UserBO;
 import com.example.memo.common.EncryptUtils;
+import com.example.memo.post.bo.PostBO;
 import com.example.memo.user.model.User;
 
 import jakarta.servlet.http.HttpServletRequest;

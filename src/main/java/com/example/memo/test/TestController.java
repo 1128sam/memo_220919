@@ -9,13 +9,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.example.memo.dao.PostDAO;
+//import com.example.memo.dao.PostDAO;
 
 @Controller
 public class TestController {
 
 	@Autowired
-	private PostDAO postDAO;
+//	private PostDAO postDAO;
 
 	@GetMapping("/test1")
 	@ResponseBody
