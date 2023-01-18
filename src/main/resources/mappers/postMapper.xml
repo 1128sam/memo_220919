@@ -57,4 +57,20 @@
 			, NOW()
 		)
 	</insert>
+	
+	<select id="selectPostListByUserId" parameterType="int" resultType="com.example.memo.post.Post">
+		select 
+			`id`
+			, `userId`
+			, `subject`
+			, `content`
+			, `imagePath`
+			, `createdAt`
+			, `updatedAt`
+		from 
+			`post`
+		WHERE
+			`userId` = #{userId}
+		ORDER BY `id` DESC
+	</select>
 </mapper>

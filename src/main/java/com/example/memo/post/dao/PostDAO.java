@@ -6,6 +6,8 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import com.example.memo.post.Post;
+
 @Repository
 public interface PostDAO {
 	public List<Map<String, Object>> selectPostListTest();
@@ -16,4 +18,6 @@ public interface PostDAO {
 			@Param("content") String content,
 			@Param("imagePath") String userimagePath
 			);
+	
+	public List<Post> selectPostListByUserId(int userId);
 }
