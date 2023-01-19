@@ -59,7 +59,7 @@
 	</insert>
 	
 	<select id="selectPostListByUserId" parameterType="int" resultType="com.example.memo.post.Post">
-		select 
+		SELECT 
 			`id`
 			, `userId`
 			, `subject`
@@ -67,10 +67,25 @@
 			, `imagePath`
 			, `createdAt`
 			, `updatedAt`
-		from 
+		FROM
 			`post`
 		WHERE
 			`userId` = #{userId}
 		ORDER BY `id` DESC
+	</select>
+	
+	<select id="selectPostByPostIdUserId" parameterType="map" resultType="com.example.memo.post.Post">
+		SELECT
+			`id`
+			, `userId`
+			, `subject`
+			, `content`
+			, `imagePath`
+			, `createdAt`
+			, `updatedAt`
+		FROM
+			`post`
+		WHERE
+			`userId` = #{userId} AND `id` = #{postId}
 	</select>
 </mapper>

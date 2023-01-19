@@ -35,7 +35,7 @@
 					<td><input type="text" class="form-control" id="email" name="email" placeholder="이메일 주소를 입력하세요"></td>
 				</tr>
 			</table>
-			<button type="submit" id="signUpBtn" class="btn btn-primary float-right">회원가입</button>
+			<button type="button" id="signUpBtn" class="btn btn-primary float-right">회원가입</button>
 		</form>
 	</div>
 </div>
@@ -77,6 +77,7 @@ $(document).ready(function() {
 	
 	$('#signUpForm').on('submit', function(e) {
 		e.preventDefault(); // 서브밋 기능 중단
+		// (submit)과 (preventDefault)를 안하거나 (button)과 preventDefault를 하거나
 		
 		let loginId = $('#loginId').val().trim();
 		let password = $('#password').val();
