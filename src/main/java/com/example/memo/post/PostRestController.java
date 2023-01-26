@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,18 +24,18 @@ public class PostRestController {
 	
 	@PostMapping("/create")
 	public Map<String, Object> create(
-			@RequestParam("subject") String subject, 
-			@RequestParam(value="content", required=false) String content, 
+			@RequestParam("subject") String subject,
+			@RequestParam(value="content", required=false) String content,
 			@RequestParam(value="file", required=false) MultipartFile file,
 			HttpSession session) {
 		
 		int userId = (int)session.getAttribute("userId");
 		String userLoginId = (String)session.getAttribute("userLoginId");
-
-		Map<String, Object> result = new HashMap<>();
-
-		// DB insert
+		
+		// db insert
 		int rowCount = postBO.addPost(userId, userLoginId, subject, content, file);
+		
+		Map<String, Object> result = new HashMap<>();
 		
 		if (rowCount > 0) {
 			result.put("code", 1);
@@ -63,6 +64,23 @@ public class PostRestController {
 		Map<String, Object> result = new HashMap<>();
 		result.put("code", 1);
 		result.put("result", "성공");
+
+		return result;
+	}
+	
+	@DeleteMapping("/delete")
+	public Map<String, Object> delete(@RequestParam("postId") int postId, HttpSession session) {
+		int userId = (Integer) session.getAttribute("userId");
+		int rowCount = postBO.deletePostByPostIdUserId(postId, userId);
+
+		Map<String, Object> result = new HashMap<>();
+		if (rowCount > 0) {
+			result.put("code", 1);
+			result.put("result", "성공");
+		} else {
+			result.put("code", 500);
+			result.put("errorMessage", "메모 삭제에 실패했습니다.");
+		}
 
 		return result;
 	}

@@ -30,4 +30,6 @@ public interface PostDAO {
 			@Param("subject") String subject,
 			@Param("content") String content,
 			@Param("file") MultipartFile file);
+	
+	public int deletePostByPostIdUserId(int postId);
 }

@@ -37,7 +37,7 @@
 		$('#postCreateBtn').on('click', function() {
 			alert("11");
 			let subject = $('#subject').val().trim();
-			let content = $('#content').val().trim();
+			let content = $('#content').val();
 			
 			if (subject == '') {
 				alert("제목을 입력하세요.");
@@ -50,15 +50,15 @@
 			alert(file);
 
 			// 파일이 업로드된 경우에만 확장자 체크
-			/* if (file != '') {
-				alert(file.split(".")pop().toLowerCase());
-				let ext = file.split(".")pop().toLowerCase();
-				if ($.inArray(ext, ['jpg', 'jpeg', 'png', 'gif']) -- -11) {
+			if (file != '') {
+				//alert(file.split(".").pop().toLowerCase());
+				let ext = file.split(".").pop().toLowerCase();
+				if ($.inArray(ext, ['jpg', 'jpeg', 'png', 'gif']) == -1) {
 					alert("이미지 파일만 업로드 할 수 있습니다.");
-					$('#file')val(""); // 파일을 지운다
+					$('#file').val(""); // 파일을 비운다.
 					return;
 				}
-			} */
+			}
 			
 			// 서버 - AJAX
 			
