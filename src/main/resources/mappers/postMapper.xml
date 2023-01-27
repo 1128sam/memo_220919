@@ -58,7 +58,7 @@
 		)
 	</insert>
 	
-	<select id="selectPostListByUserId" parameterType="int" resultType="com.example.memo.post.Post">
+	<select id="selectPostListByUserId" parameterType="map" resultType="com.example.memo.post.Post">
 		SELECT 
 			`id`
 			, `userId`
@@ -71,9 +71,33 @@
 			`post`
 		WHERE
 			`userId` = #{userId}
-		ORDER BY `id` DESC
+			<if test="direction == null">
+			ORDER BY `id` DESC
+			</if>
+			<if test="direction == 'next'">
+				<![CDATA[
+				AND `id` < #{standardId}
+				]]>
+			ORDER BY `id` DESC
+			</if>
+			<if test="direction == 'prev'">
+				<![CDATA[
+				AND `id` >  #{standardId}
+				]]>
+			</if>
+		LIMIT ${limit}
 	</select>
-	
+
+	<select id="selectPostIdByUserIdSort" parameterType="map" resultType="int">
+		SELECT `id`
+		FROM
+			`post`
+		WHERE
+			`userId` = #{userId}
+		ORDER BY `id` ${sort} <!-- "`"가 들어가면 안되기 때문에 -->
+		LIMIT 1
+	</select>
+
 	<select id="selectPostByPostIdUserId" parameterType="map" resultType="com.example.memo.post.Post">
 		SELECT
 			`id`

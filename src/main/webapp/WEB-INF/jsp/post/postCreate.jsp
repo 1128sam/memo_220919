@@ -35,7 +35,6 @@
 		})
 		
 		$('#postCreateBtn').on('click', function() {
-			alert("11");
 			let subject = $('#subject').val().trim();
 			let content = $('#content').val();
 			
@@ -47,7 +46,6 @@
 			console.log(content);
 
 			let file = $('#file').val(); // C:\fakepath\p_pysic_mod
-			alert(file);
 
 			// 파일이 업로드된 경우에만 확장자 체크
 			if (file != '') {
@@ -84,7 +82,7 @@
 				, success:function(data) {
 					if (data.code == 1) {
 						// 성공
-						alert("메모가 저장되었습니다.");
+						// alert("메모가 저장되었습니다.");
 						location.href = "/post/post_list_view";
 					} else {
 						// 실패

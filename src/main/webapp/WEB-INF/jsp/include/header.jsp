@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="header-box d-flex justify-content-between align-items-center">
 	<%-- logo --%>
 	<div>
-		<h1 class="font-weight-bold">MEMO 게시판</h1>
+		<h1 class="font-weight-bold ml-5"><a href="/post/post_list_view" id="logoLink">MEMO 게시판</a></h1>
 	</div>
 	
 	<%-- 로그인 정보 --%>

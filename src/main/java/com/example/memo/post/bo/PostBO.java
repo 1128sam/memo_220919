@@ -1,5 +1,6 @@
 package com.example.memo.post.bo;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -16,7 +17,9 @@ import com.example.memo.post.dao.PostDAO;
 public class PostBO {
 //	private Logger logger = LoggerFactory.getLogger(PostBO.class);
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
-	
+
+	private static final int POST_MAX_SIZE = 3;
+
 	@Autowired
 	private PostDAO postDAO;
 	@Autowired
@@ -80,10 +83,41 @@ public class PostBO {
 		return postDAO.deletePostByPostIdUserId(postId);
 	}
 
-	public List<Post> getPostListByUserId(int userId) {
-		return postDAO.selectPostListByUserId(userId);
+	public List<Post> getPostListByUserId(int userId, Integer prevId, Integer nextId) {
+		// 10 9 8 | 7 6 5 | 4 3 2 | 1
+		// 만약 4 3 2 페이지에 있을 때
+		// 1) 이전: 정방향ASC 4보다 큰 3개(5 6 7) => List reverse(7 6 5)
+		// 2) 다음: 2보다 작은 3개 DESC
+		// 3) 첫페이지(이전, 다음 없음) DESC 3개
+		String direction = null; // 방향
+		Integer standardId = null; // 기준 postId
+		if (prevId != null) { // 이전
+			direction = "prev";
+			standardId = prevId;
+			
+			List<Post> postList = postDAO.selectPostListByUserId(userId, direction, standardId, POST_MAX_SIZE);
+			Collections.reverse(postList);
+			return postList;
+		} else if (nextId != null) { // 다음
+			direction = "next";
+			standardId = nextId;
+		}
+
+		// 첫페이지일 때(페이징 X) standardId, direction이 null
+		// 다음일 때 standardId, direction 채워져서 넘어감
+		return postDAO.selectPostListByUserId(userId, direction, standardId, POST_MAX_SIZE);
 	}
 	
+	public boolean isPrevLastPage(int prevId, int userId) {
+		int maxPostId = postDAO.selectPostIdByUserIdSort(userId, "DESC");
+		return maxPostId == prevId ? true : false;
+	}
+	
+	public boolean isNextLastPage(int nextId, int userId) {
+		int minPostId = postDAO.selectPostIdByUserIdSort(userId, "ASC");
+		return minPostId == nextId ? true : false;
+	}
+
 	public Post getPostByPostIdUserId(int postId, int userId) {
 		return postDAO.selectPostByPostIdUserId(postId, userId);
 	}
